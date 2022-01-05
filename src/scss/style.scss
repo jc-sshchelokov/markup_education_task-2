@@ -1,0 +1,168 @@
+*,
+::after,
+::before {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 1230px;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+$colors: (
+  primary: #333,
+  secondary: #555,
+  brand: #ff0033,
+  pinker: #f90f90,
+);
+
+// task-1
+
+.task-1 {
+  padding: 100px 0 0 0;
+  margin-bottom: 100px;
+  .block {
+    &-wrapper {
+      display: flex;
+      @each $key, $value in $colors {
+        .block-item.#{$key} {
+          background: $value;
+        }
+      }
+    }
+    &-item {
+      width: 25%;
+      min-height: 100px;
+    }
+  }
+}
+
+// task-2
+
+.task-2 {
+  margin-bottom: 100px;
+  .random {
+    &-balls {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    &-ball {
+      width: 12px;
+      height: 12px;
+      background-color: #ccc;
+      margin: 5px;
+      border-radius: 50%;
+    }
+
+    @for $num from 0 through 500 {
+      &-ball:nth-child(#{$num}) {
+        background-color: rgb(random(255), random(255), random(255));
+      }
+    }
+  }
+}
+
+// task-3
+
+.task-3 {
+  margin-bottom: 100px;
+
+  .star-sky {
+    min-height: 400px;
+    background: #000;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .star {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background-color: #fff;
+  }
+
+  @for $num from 0 through 700 {
+    .star:nth-child(#{$num}) {
+      top: random(400) + px;
+      right: random(1200) + px;
+    }
+  }
+}
+
+// task-4
+
+.task-4 {
+  margin-bottom: 100px;
+  .hue-round {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    @for $hue from 0 through 360 {
+      background: conic-gradient(
+        from #{$hue}deg,
+        red,
+        orange,
+        yellow,
+        green,
+        cyan,
+        blue,
+        magenta
+      );
+    }
+  }
+}
+
+// task-5
+
+@mixin random-rgba {
+  background-color: rgba(random(255), random(255), random(255), random(100%));
+}
+
+.task-5 {
+  margin-bottom: 100px;
+  .block {
+    &-item {
+      height: 20px;
+      @for $i from 0 to 1000 {
+        &:nth-child(#{$i}) {
+          @include random-rgba;
+        }
+      }
+    }
+  }
+}
+
+// task 6
+
+@mixin animated-border($color, $width, $style: null) {
+  border: {
+    color: $color;
+    width: $width;
+  }
+
+  @if $style == null {
+    $style: inherit;
+  } @else {
+    border-style: $style;
+  }
+}
+
+.task-6 {
+  margin-bottom: 100px;
+
+  .btn {
+    min-width: 200px;
+    padding: 20px 40px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 18px;
+    &:hover {
+      @include animated-border(red, 2px, dashed);
+    }
+  }
+}
