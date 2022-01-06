@@ -210,19 +210,28 @@ $colors: (
   }
 
   .cuber-wrapper {
-    min-height: 800px;
+    min-height: 500px;
     display: flex;
     justify-content: center;
     align-items: center;
+    transform-style: preserve-3d;
+    perspective: 1000;
     .cube {
       width: 300px;
       height: 300px;
       position: relative;
-      background-color: red;
+      transform-style: preserve-3d;
+      perspective: 5000px;
+      transition: transform 1s ease;
+      &:hover {
+        transform: rotateX(-98deg);
+      }
       &-1,
       &-2,
       &-3,
-      &-4 {
+      &-4,
+      &-5,
+      &-6 {
         width: 100%;
         height: 100%;
         position: absolute;
@@ -230,24 +239,107 @@ $colors: (
 
       &-1 {
         top: 0;
-        left: -300px;
+        left: -150px;
         background-color: blue;
+        transform: rotate3d(0, 1, 0, 90deg);
       }
       &-2 {
         top: 0;
-        right: -300px;
+        right: -150px;
         background-color: yellow;
+        transform: rotate3d(0, 1, 0, 90deg);
       }
       &-3 {
-        bottom: -300px;
+        bottom: -150px;
         right: 0;
         background-color: pink;
+        transform: rotate3d(1, 0, 0, 90deg);
       }
       &-4 {
-        top: -300px;
+        top: -150px;
         right: 0;
         background-color: gray;
+        transform: rotate3d(1, 0, 0, 90deg);
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
+      &-5 {
+        top: 0;
+        right: 0;
+        background-color: magenta;
+        transform: rotate3d(0, 1, 0, 360deg) translate3d(0, 0, 150px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      &-6 {
+        top: 0;
+        right: 0;
+        background-color: red;
+        transform: rotate3d(0, 1, 0, 0deg) translate3d(0, 0, -150px);
+      }
+    }
+  }
+}
+
+//task-8
+
+.task-8 {
+  margin-bottom: 100px;
+  .rotated-cards {
+    margin-top: 100px;
+    min-height: 400px;
+    display: flex;
+    transform-style: preserve-3d;
+    perspective: 3000px;
+    .card {
+      width: 300px;
+      height: 350px;
+      background-color: aqua;
+      margin-right: 40px;
+      transform: rotateY(60deg);
+      transform-style: preserve-3d;
+      perspective: 900px;
+      position: relative;
+      transition: transform 0.7s ease;
+      border: 2px solid #000;
+      &:hover {
+        transform: rotateY(0deg);
+      }
+      &-subcard {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translateX(-50%) translateZ(60px);
+        width: 150px;
+        background-color: orange;
+        box-shadow: 0px 0px 65px 0px rgba(34, 60, 80, 0.62);
+        height: 255px;
+      }
+    }
+  }
+}
+
+//task-9
+
+.task-9 {
+  margin-top: 100px;
+  margin-bottom: 100px;
+  .bubbles-wrapper {
+    min-height: 550px;
+    border: 1px solid black;
+    position: relative;
+    @for $i from 0 through 200 {
+        .bubble:nth-child(#{$i}){
+          position: absolute;
+          top: random(400) + px;
+          left: random(100%);
+          width: random(10) + px;
+          height: random(10) + px;
+          background: red;
+          border-radius: 50%;
+        }
     }
   }
 }
