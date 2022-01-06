@@ -330,16 +330,38 @@ $colors: (
     min-height: 550px;
     border: 1px solid black;
     position: relative;
+    overflow: hidden;
     @for $i from 0 through 200 {
-        .bubble:nth-child(#{$i}){
-          position: absolute;
-          top: random(400) + px;
-          left: random(100%);
-          width: random(10) + px;
-          height: random(10) + px;
-          background: red;
-          border-radius: 50%;
+      .bubble:nth-child(#{$i}) {
+        $width: random(100 / 1) + px;
+        $height: $width;
+        $x: random(1200);
+        $y: random(1200);
+        @include random-rgba;
+        position: absolute;
+        width: $width;
+        height: $height;
+        border-radius: 50%;
+        top: $y + px;
+        left: $x + px;
+        @keyframes move {
+          from {
+            top: $y - px;
+            left: $x - px;
+          }
+
+          50% {
+            top: $y - px;
+            left: $x + px;
+          }
+
+          to {
+            top: $y - px;
+            right: $x - px;
+          }
         }
+        animation: move 20s linear 0s infinite;
+      }
     }
   }
 }
