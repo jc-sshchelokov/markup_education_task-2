@@ -120,7 +120,12 @@ $colors: (
 // task-5
 
 @mixin random-rgba {
-  background-color: rgba(random(255), random(255), random(255), random(100)/100%);
+  background-color: rgba(
+    random(255),
+    random(255),
+    random(255),
+    random(100) / 100%
+  );
 }
 
 .task-5 {
@@ -333,7 +338,7 @@ $colors: (
     overflow: hidden;
     @for $i from 0 through 200 {
       .bubble:nth-child(#{$i}) {
-        $width: random(100 / 1) + px;
+        $width: random(250) + px;
         $height: $width;
         $x: random(1200);
         $y: random(1200);
