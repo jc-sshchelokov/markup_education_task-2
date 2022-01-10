@@ -142,18 +142,39 @@ $colors: (
   }
 }
 
-// task 6
-
-@mixin animated-border($color, $width, $style: null) {
-  border: {
-    color: $color;
-    width: $width;
-  }
-
-  @if $style == null {
-    $style: inherit;
+// task null
+@mixin animated-border($color, $height, $show: true) {
+  @if $show {
+    position: relative;
+    transition: border-color 0.4s ease;
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -$height;
+      width: 0%;
+      height: $height;
+      background-color: $color;
+      transition: width 0.4s ease, border-color 0.4s ease;
+    }
+    &:hover {
+      border: {
+        color: transparent;
+      }
+      &:before {
+        width: 100%;
+      }
+    }
   } @else {
-    border-style: $style;
+    position: static;
+    &:hover {
+      border: {
+        color: $color;
+      }
+      &:before {
+        display: none;
+      }
+    }
   }
 }
 
@@ -161,13 +182,16 @@ $colors: (
   margin-bottom: 100px;
 
   .btn {
+    @include animated-border(blue, 4px, true);
+
     min-width: 200px;
     padding: 20px 40px;
     text-align: center;
     cursor: pointer;
     font-size: 18px;
+    border: 3px solid green;
     &:hover {
-      @include animated-border(red, 2px, dashed);
+      @include animated-border(green, 4px, false);
     }
   }
 }
@@ -185,23 +209,19 @@ $colors: (
     position: relative;
     margin-bottom: 100px;
     .card {
-      transform-style: preserve-3d;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
+      transform-style: preserve-3d;
       transition: transform 0.7s ease;
       position: absolute;
-      &:hover {
-        transform: rotate3d(0, 1, 0, 180deg);
-      }
       .front {
         position: absolute;
         width: 100%;
         height: 100%;
         top: 0;
         left: 0;
-        transform: rotateY(0deg);
         background-color: red;
       }
 
@@ -210,6 +230,12 @@ $colors: (
         height: 100%;
         background-color: yellow;
         transform: rotateY(-180deg);
+      }
+    }
+
+    &:hover {
+      .card {
+        transform: rotateY(180deg);
       }
     }
   }
